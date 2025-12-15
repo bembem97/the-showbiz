@@ -1,26 +1,162 @@
+@layer theme, base, mui, components, utilities;
 @import "tailwindcss";
 
+/** Kung naa ni, mugana og tarong ang Mui + tailwind (prefers-scheme-color) nga kanang makita nimo sa :root {...} */
+/** https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually */
+@custom-variant dark (&:where([data-dark], [data-dark] *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--color-zinc-100);
+  --foreground: var(--color-zinc-900);
+
+  @variant dark {
+    --background: var(--color-slate-950);
+    --foreground: var(--color-slate-100);
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Material UI theme colors */
+  --color-primary: rgb(var(--mui-palette-primary-mainChannel));
+  --color-primary-light: rgb(var(--mui-palette-primary-lightChannel));
+  --color-primary-dark: rgb(var(--mui-palette-primary-darkChannel));
+  --color-primary-contrast: rgb(var(--mui-palette-primary-contrastTextChannel));
+
+  --color-secondary: rgb(var(--mui-palette-secondary-mainChannel));
+  --color-secondary-light: rgb(var(--mui-palette-secondary-lightChannel));
+  --color-secondary-dark: rgb(var(--mui-palette-secondary-darkChannel));
+  --color-secondary-contrast: rgb(
+    var(--mui-palette-secondary-contrastTextChannel)
+  );
+
+  /* Material UI status colors */
+  --color-info: rgb(var(--mui-palette-info-mainChannel));
+  --color-info-light: rgb(var(--mui-palette-info-lightChannel));
+  --color-info-dark: rgb(var(--mui-palette-info-darkChannel));
+  --color-info-contrast: rgb(var(--mui-palette-info-contrastTextChannel));
+
+  --color-error: rgb(var(--mui-palette-error-mainChannel));
+  --color-error-light: rgb(var(--mui-palette-error-lightChannel));
+  --color-error-dark: rgb(var(--mui-palette-error-darkChannel));
+  --color-error-contrast: rgb(var(--mui-palette-error-contrastTextChannel));
+
+  --color-success: rgb(var(--mui-palette-success-mainChannel));
+  --color-success-light: rgb(var(--mui-palette-success-lightChannel));
+  --color-success-dark: rgb(var(--mui-palette-success-darkChannel));
+  --color-success-contrast: rgb(var(--mui-palette-success-contrastTextChannel));
+
+  --color-warning: rgb(var(--mui-palette-warning-mainChannel));
+  --color-warning-light: rgb(var(--mui-palette-warning-lightChannel));
+  --color-warning-dark: rgb(var(--mui-palette-warning-darkChannel));
+  --color-warning-contrast: rgb(var(--mui-palette-warning-contrastTextChannel));
+
+  /* Material UI text & common colors */
+  --color-text-primary: rgb(var(--mui-palette-text-primaryChannel));
+  --color-text-secondary: rgb(var(--mui-palette-text-secondaryChannel));
+  --color-text-disabled: var(--mui-palette-text-disabled);
+  --color-common-background: var(--mui-palette-common-background);
+  --color-common-onBackground: var(--mui-palette-common-onBackground);
+  --color-divider: var(--mui-palette-divider);
+
+  /* Material UI background colors */
+  --color-background-default: var(--mui-palette-background-default);
+  --color-background-paper: var(--mui-palette-background-paper);
+
+  /* Material UI action colors */
+  --color-action-active: var(--mui-palette-action-active);
+  --color-action-hover: var(--mui-palette-action-hover);
+  --color-action-selected: var(--mui-palette-action-selected);
+  --color-action-disabled: var(--mui-palette-action-disabled);
+  --color-action-focus: var(--mui-palette-action-focus);
+
+  /* Skeleton */
+  --color-Skeleton-bg: var(--mui-palette-Skeleton-bg);
+
+  /* Material UI typography */
+  --font-h1: var(--mui-font-h1);
+  --font-h2: var(--mui-font-h2);
+  --font-h3: var(--mui-font-h3);
+  --font-h4: var(--mui-font-h4);
+  --font-h5: var(--mui-font-h5);
+  --font-h6: var(--mui-font-h6);
+  --font-subtitle1: var(--mui-font-subtitle1);
+  --font-subtitle2: var(--mui-font-subtitle2);
+  --font-body1: var(--mui-font-body1);
+  --font-body2: var(--mui-font-body2);
+  --font-button: var(--mui-font-button);
+  --font-caption: var(--mui-font-caption);
+  --font-overline: var(--mui-font-overline);
+  --font-roboto: var(--font-roboto);
+
+  /* Z Index */
+  --z-index-mobileStepper: var(--mui-zIndex-mobileStepper);
+  --z-index-fab: var(--mui-zIndex-fab);
+  --z-index-speedDial: var(--mui-zIndex-speedDial);
+  --z-index-appBar: var(--mui-zIndex-appBar);
+  --z-index-drawer: var(--mui-zIndex-drawer);
+  --z-index-modal: var(--mui-zIndex-modal);
+  --z-index-snackbar: var(--mui-zIndex-snackbar);
+  --z-index-tooltip: var(--mui-zIndex-tooltip);
+
+  /* Material UI breakpoints */
+  --breakpoint-*: initial;
+  --breakpoint-3xs: 16rem; /* 256px */
+  --breakpoint-2xs: 18rem; /* 288px */
+  --breakpoint-xs: 20rem; /* 320px */
+  --breakpoint-sm: 24rem; /* 384px */
+  --breakpoint-md: 28rem; /* 448px */
+  --breakpoint-lg: 32rem; /* 512px */
+  --breakpoint-xl: 36rem; /* 576px */
+  --breakpoint-2xl: 42rem; /* 672px */
+  --breakpoint-3xl: 48rem; /* 768px */
+  --breakpoint-4xl: 56rem; /* 896px */
+  --breakpoint-5xl: 64rem; /* 1024px */
+  --breakpoint-6xl: 72rem; /* 1152px */
+  --breakpoint-7xl: 80rem; /* 1280px */
+  --breakpoint-8xl: 90rem; /* 1440px */
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply h-dvh min-w-xs font-roboto;
+}
+
+@layer base {
+  h1 {
+    font: var(--mui-font-h1);
+    letter-spacing: -0.01562em;
+  }
+  h2 {
+    font: var(--mui-font-h2);
+    letter-spacing: -0.00833em;
+  }
+  h3 {
+    font: var(--mui-font-h3);
+  }
+  h4 {
+    font: var(--mui-font-h4);
+    letter-spacing: 0.00735em;
+  }
+  h5 {
+    font: var(--mui-font-h5);
+  }
+  h6 {
+    font: var(--mui-font-h6);
+    letter-spacing: 0.0075em;
+  }
+  p {
+    font: var(--mui-font-body1);
+    letter-spacing: 0.00938em;
+  }
+  span {
+    font: var(--mui-font-body2);
+    letter-spacing: 0.01071em;
+  }
+}
+
+/* Material UI typography utilities */
+@utility typography-* {
+  font: --value(--font-*);
 }

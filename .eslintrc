@@ -1,0 +1,11 @@
+// .eslintrc
+{
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [{ "regex": "^@mui/[^/]+$" }]
+      }
+    ]
+  }
+}
