@@ -42,7 +42,12 @@ export default function SignInForm() {
 
       <Stack component="form" onSubmit={handleSubmit} className="space-y-4">
         <TextField label="Email Address" id="email" name="email" />
-        <TextField label="Password" id="password" name="password" />
+        <TextField
+          type="password"
+          label="Password"
+          id="password"
+          name="password"
+        />
 
         <FormControlLabel
           control={<Checkbox defaultChecked />}

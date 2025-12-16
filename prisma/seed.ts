@@ -12,9 +12,9 @@ const prisma = new PrismaClient({
 
 const userData: Prisma.UserCreateInput[] = [
   {
-    id: "seed-id-100",
-    name: "Alice",
-    email: "alice@prisma.io",
+    id: "seed-id-101",
+    name: "Alicia",
+    email: "alicia@prisma.io",
     posts: {
       create: [
         {
@@ -30,9 +30,9 @@ const userData: Prisma.UserCreateInput[] = [
     },
   },
   {
-    id: "seed-id-200",
-    name: "Bob",
-    email: "bob@prisma.io",
+    id: "seed-id-201",
+    name: "Bobby",
+    email: "bobby@prisma.io",
     posts: {
       create: [
         {
