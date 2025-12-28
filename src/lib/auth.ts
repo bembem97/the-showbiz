@@ -15,6 +15,8 @@ export const auth = betterAuth({
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID! as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET! as string,
+      accessType: "offline",
+      prompt: "select_account consent",
     },
   },
   session: {
@@ -22,16 +24,8 @@ export const auth = betterAuth({
       enabled: true,
       maxAge: 5 * 60, // Cache duration in seconds (5 minutes)
     },
+    expiresIn: 60 * 60 * 24 * 7, // 7 days
+    updateAge: 60 * 60 * 24, // 1 day (every 1 day the session expiration is updated)
   },
   plugins: [nextCookies()],
-  // emailVerification: {
-  //   sendVerificationEmail: async ({ user, url, token }, request) => {
-
-  // void sendEmail({
-  //   to: user.email,
-  //   subject: "Verify your email address",
-  //   text: `Click the link to verify your email: ${url}`,
-  // });
-  // },
-  // },
 });

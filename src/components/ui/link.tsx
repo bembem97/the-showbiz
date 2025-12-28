@@ -1,4 +1,4 @@
 "use client";
-import TSLink, { LinkProps } from "next/link";
+import TSLink, { LinkProps as TSLinkProps } from "next/link";
 
-export { TSLink as default, type LinkProps };
+export { TSLink as default, type TSLinkProps };

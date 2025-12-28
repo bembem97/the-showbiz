@@ -31,7 +31,7 @@ export function Popper({
   // };
 
   /** ---------------------------
-   *   EVENT DELEGATION HERE
+   **  EVENT DELEGATION HERE
    * ---------------------------- */
   const handleDelegatedClick = (event: React.MouseEvent<HTMLElement>) => {
     const target = event.target as HTMLElement;

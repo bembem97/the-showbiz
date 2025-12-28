@@ -7,10 +7,18 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { Metadata } from "next";
+import InfoIcon from "@mui/icons-material/Info";
+import Tooltip from "@mui/material/Tooltip";
 
 export const metadata: Metadata = {
   title: "Sign in",
 };
+
+const fallback = (
+  <div className="grid place-items-center p-4">
+    <CircularProgress />
+  </div>
+);
 
 export default async function SignIn() {
   const session = await auth.api.getSession({
@@ -25,14 +33,14 @@ export default async function SignIn() {
     <div className="grid p-2">
       <Paper className="mx-auto w-full max-w-md p-4">
         <Stack className="space-y-4">
-          <h1 className="mb-4">Sign In</h1>
-          <React.Suspense
-            fallback={
-              <div className="grid place-items-center p-4">
-                <CircularProgress />
-              </div>
-            }
-          >
+          <div className="justify-between flex items-center">
+            <h1>Sign In</h1>
+            <Tooltip title="This sign-in form does not include email verification.">
+              <InfoIcon />
+            </Tooltip>
+          </div>
+
+          <React.Suspense fallback={fallback}>
             <SignInForm />
           </React.Suspense>
         </Stack>

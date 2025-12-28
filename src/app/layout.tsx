@@ -6,7 +6,7 @@ import NextTopLoader from "nextjs-toploader";
 import type { Metadata } from "next";
 import "./globals.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
-import { Roboto } from "next/font/google";
+import { Roboto, Bruno_Ace_SC } from "next/font/google";
 import { AppThemeProvider } from "@/theme";
 import { cn } from "@/lib/utils";
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
@@ -18,6 +18,13 @@ const roboto = Roboto({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-roboto",
+});
+
+export const brunoAceSc = Bruno_Ace_SC({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-bruno-ace-sc",
 });
 
 export const metadata: Metadata = {
@@ -44,8 +51,10 @@ export default function RootLayout({
             <InitColorSchemeScript attribute="data" />
             <NextTopLoader color="var(--mui-palette-primary-dark)" />
 
-            <Header />
-            <main>{children}</main>
+            <div className="page">
+              <Header />
+              <main>{children}</main>
+            </div>
           </AppThemeProvider>
         </AppRouterCacheProvider>
       </body>

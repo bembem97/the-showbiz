@@ -26,13 +26,7 @@ export default function SchemeMode({
         component={PopperButton}
         title="Theme Mode"
       >
-        {mode === "dark" ? (
-          <DarkModeIcon />
-        ) : mode === "light" ? (
-          <LightModeIcon />
-        ) : (
-          <SettingsBrightnessIcon />
-        )}
+        <SettingsBrightnessIcon />
       </IconButton>
     );
   }
@@ -41,17 +35,12 @@ export default function SchemeMode({
     <>
       <Popper {...rest} className={cn(className)}>
         <IconButton
-          className="size-10 text-foreground"
-          component={PopperButton}
+          color="inherit"
+          className="size-10"
           title="Theme Mode"
+          data-popper-button
         >
-          {mode === "dark" ? (
-            <DarkModeIcon />
-          ) : mode === "light" ? (
-            <LightModeIcon />
-          ) : (
-            <SettingsBrightnessIcon />
-          )}
+          {colorScheme === "dark" ? <DarkModeIcon /> : <LightModeIcon />}
         </IconButton>
         <PopperPanel placement="bottom-end">
           <Paper className="p-2" elevation={1}>
@@ -59,6 +48,7 @@ export default function SchemeMode({
               <span className="typography-h4">Theme</span>
               <ButtonGroup
                 color={colorScheme === "dark" ? "primary" : "inherit"}
+                data-popper-button
               >
                 <Button
                   startIcon={<LightModeIcon />}

@@ -1,7 +1,7 @@
 "use client";
 
 import TSLink from "@/components/ui/link";
-import { Popper, PopperButton, PopperPanel } from "@/components/ui/popper";
+import { Popper, PopperPanel } from "@/components/ui/popper";
 import { cn } from "@/lib/utils";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
@@ -19,17 +19,19 @@ export default function SignInPopper({
 
   return (
     <Popper {...rest} className={cn(className)}>
-      <Button
-        component={PopperButton}
-        color={themeMode}
-        className="text-foreground"
-      >
+      <Button data-popper-button color="inherit">
         Sign In
       </Button>
 
       <PopperPanel placement="bottom-end">
         <Paper className="space-y-2 p-4">
-          <Button component={TSLink} href="/signin" className="w-full">
+          <Button
+            color={themeMode}
+            component={TSLink}
+            data-popper-button
+            href="/signin"
+            className="w-full"
+          >
             Sign In with Email
           </Button>
 

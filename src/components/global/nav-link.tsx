@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { useSelectedLayoutSegments } from "next/navigation";
 import NextLink from "next/link";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 export default function NavLink({
   className,
@@ -11,18 +11,17 @@ export default function NavLink({
   href,
   ...props
 }: React.ComponentProps<typeof NextLink>) {
-  const segments = useSelectedLayoutSegments();
-  const mediaType = segments[0];
-
-  const active = mediaType === href || href === "/";
+  const pathname = usePathname();
+  const active = pathname === href;
 
   return (
     <NextLink
+      color="inherit"
       href={href}
       {...props}
       className={cn(
-        "inline-flex px-0.5",
-        { "not-dark:underline dark:text-primary": active },
+        "flex rounded-sm px-2.5 py-1",
+        { "not-dark:bg-black/15 dark:text-white": active },
         className,
       )}
     >

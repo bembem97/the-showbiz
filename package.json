@@ -24,17 +24,19 @@
     "better-auth": "^1.4.6",
     "clsx": "^2.1.1",
     "dotenv": "^17.2.3",
+    "embla-carousel": "^8.6.0",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "next": "16.0.10",
     "nextjs-toploader": "^3.9.17",
     "pg": "^8.16.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "resend": "^6.6.0",
     "swr": "^2.3.7",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
+    "@tailwindcss/postcss": "^4.1.18",
     "@types/node": "^25.0.1",
     "@types/pg": "^8.15.6",
     "@types/react": "^19.2.7",
@@ -44,7 +46,7 @@
     "eslint-config-next": "16.0.7",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "prisma": "^7.1.0",
-    "tailwindcss": "^4",
+    "tailwindcss": "^4.1.18",
     "tsx": "^4.21.0",
     "typescript": "^5"
   }

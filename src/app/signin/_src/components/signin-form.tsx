@@ -9,6 +9,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Divider from "@mui/material/Divider";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Stack from "@mui/material/Stack";
+import { useColorScheme } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -16,6 +17,9 @@ import React, { useState } from "react";
 export default function SignInForm() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+
+  const { colorScheme } = useColorScheme();
+  const mode = colorScheme === "dark" ? "primary" : "inherit";
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -37,7 +41,7 @@ export default function SignInForm() {
   }
 
   return (
-    <Stack className="space-y-4">
+    <>
       {error && <Alert severity="error">{error}</Alert>}
 
       <Stack component="form" onSubmit={handleSubmit} className="space-y-4">
@@ -50,12 +54,19 @@ export default function SignInForm() {
         />
 
         <FormControlLabel
-          control={<Checkbox defaultChecked />}
+          control={
+            <Checkbox
+              defaultChecked
+              color={colorScheme === "dark" ? "primary" : "default"}
+            />
+          }
           name="remember"
           label="Remember me"
         />
 
-        <Button type="submit">Sign In</Button>
+        <Button type="submit" color={mode}>
+          Sign In
+        </Button>
       </Stack>
 
       <div className="flex flex-wrap items-center justify-center gap-x-1">
@@ -65,6 +76,7 @@ export default function SignInForm() {
           component={TSLink}
           href="/signup"
           className="typography-span"
+          color={mode}
         >
           Sign up
         </Button>
@@ -73,6 +85,6 @@ export default function SignInForm() {
       <Divider>Or</Divider>
 
       <GoogleSignIn />
-    </Stack>
+    </>
   );
 }

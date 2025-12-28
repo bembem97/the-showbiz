@@ -16,7 +16,7 @@ export default async function Watchlist() {
   });
 
   if (!session) {
-    redirect("/sign-in");
+    redirect("/signin");
   }
 
   return (

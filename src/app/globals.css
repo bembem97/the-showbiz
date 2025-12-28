@@ -119,11 +119,20 @@
   --breakpoint-8xl: 90rem; /* 1440px */
 }
 
-body {
-  @apply h-dvh min-w-xs font-roboto;
-}
-
 @layer base {
+  body {
+    @apply grid min-w-xs font-roboto;
+    grid-template: "page" minmax(0, 1fr) / minmax(0, 1fr);
+
+    & > .page {
+      grid-area: page;
+    }
+  }
+
+  :where(html, body) {
+    @apply max-h-max min-h-dvh;
+  }
+
   h1 {
     font: var(--mui-font-h1);
     letter-spacing: -0.01562em;
@@ -154,9 +163,307 @@ body {
     font: var(--mui-font-body2);
     letter-spacing: 0.01071em;
   }
+
+  :where(*) {
+    @apply border-divider;
+  }
 }
 
 /* Material UI typography utilities */
 @utility typography-* {
   font: --value(--font-*);
+}
+
+@utility flicker {
+  animation: flicker 0.35s infinite;
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.94;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@layer components {
+  .page {
+    @apply grid h-full;
+    grid-template: "h" min-content "m" 1fr / minmax(0, 1fr);
+
+    & > header {
+      grid-area: h;
+    }
+    & > main {
+      grid-area: m;
+    }
+
+    @supports (height: stretch) {
+      & {
+        height: stretch;
+      }
+    }
+  }
+
+  @supports (corner-shape: bevel superellipse(infinity)) {
+    .bevel-tl-br {
+      corner-shape: bevel superellipse(infinity);
+    }
+  }
+
+  @supports (corner-shape: superellipse(infinity)) {
+    .bevel-none {
+      corner-shape: superellipse(infinity);
+    }
+  }
+
+  .scanlines {
+    @apply relative;
+
+    &::before {
+      @apply pointer-events-none absolute inset-0 z-50 size-full content-[''];
+      background: repeating-linear-gradient(
+        to bottom,
+        /* rgba(0, 255, 0, 0.05) 0px, rgba(0, 255, 0, 0.05) 1px, */
+          color-mix(in oklch, var(--color-slate-100) 7%, transparent),
+        color-mix(in oklch, var(--color-slate-100) 7%, transparent) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+    }
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) var(--color-secondary);
+  }
+
+  .scrollbar-hidden {
+    scrollbar-width: none;
+    scrollbar-color: transparent;
+  }
+
+  /* ============================ grid layout ========================== */
+  .star-layout {
+    display: grid;
+    column-gap: 1rem;
+    row-gap: 0.5rem;
+    grid-template:
+      "profile" auto
+      "name" auto
+      "lifetime" auto
+      "cast" auto
+      "bio" auto
+      "credit" minmax(0, 1fr) / minmax(0, 1fr);
+
+    @media (width >= 42rem) {
+      grid-template:
+        "name name" min-content
+        "lifetime lifetime" min-content
+        "profile cast" min-content
+        "bio bio" auto
+        "credit credit" min-content / 16.625rem minmax(0, 1fr); /* 17.125rem */
+    }
+
+    @media (width >= 48rem) {
+      grid-template:
+        "name name" min-content
+        "lifetime lifetime" min-content
+        "profile cast" min-content
+        "profile bio" min-content
+        ". bio" auto
+        "credit credit" min-content / 16.625rem minmax(0, 1fr);
+    }
+
+    @media (width >= 56rem) {
+      grid-template:
+        "name name" auto
+        "lifetime lifetime" auto
+        "profile cast" auto
+        "bio bio" auto
+        "credit credit" min-content / 16.625rem minmax(0, 1fr);
+    }
+
+    @media (width >= 64rem) {
+      grid-template:
+        "name name" auto
+        "lifetime lifetime" auto
+        "profile cast" auto
+        "profile bio" minmax(0, 1fr)
+        ". bio" auto
+        "credit credit" min-content / 16.625rem minmax(0, 1fr);
+    }
+  }
+
+  .grid-flexible {
+    /* --grid-max-col-count: attr(max-col-count type(<number>), 4); */
+    /* --grid-min-col-size: 200px; */
+    --grid-gap: 0.25rem;
+
+    /* calculations, do not touch */
+    --grid-col-size-calc: calc(
+      (100% - var(--grid-gap) * var(--grid-max-col-count)) /
+        var(--grid-max-col-count)
+    );
+    --grid-col-min-size-calc: min(
+      100%,
+      max(var(--grid-min-col-size), var(--grid-col-size-calc))
+    );
+
+    display: grid;
+    gap: var(--grid-gap);
+
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(var(--grid-col-min-size-calc), 1fr)
+    );
+  }
+
+  .title-layout {
+    display: grid;
+    grid-template:
+      "title title video" auto
+      "genres genres video" auto
+      "poster info info" auto
+      "poster score rate" auto
+      "poster watchlist watchlist" minmax(0, 1fr)
+      "tagline tagline tagline" auto
+      "summary summary summary" auto
+      "directors directors directors" auto
+      ". . ." min-content / min-content auto minmax(min-content, 1fr);
+    align-items: flex-start;
+    row-gap: 1rem;
+
+    @media (width >= 36rem) {
+      column-gap: 1rem;
+      grid-template:
+        "title title video" auto
+        "genres genres video" auto
+        "poster info info" auto
+        "poster ratings ratings" auto
+        "poster cta cta"
+        "poster . ." minmax(0, 1fr)
+        "tagline tagline tagline" auto
+        "summary  summary summary" auto
+        "directors directors directors" auto
+        ". . ." min-content / auto auto minmax(0, 1fr);
+    }
+
+    @media (width >= 42rem) {
+      grid-template:
+        "poster title video" auto
+        "poster info info" auto
+        "poster ratings ratings" auto
+        "poster cta cta" auto
+        "poster . ." minmax(0, 1fr)
+        "tagline tagline tagline" auto
+        "summary  summary summary" auto
+        "directors directors directors" auto
+        ". . ." min-content / auto auto minmax(0, 1fr);
+    }
+
+    @media (width >= 64rem) {
+      row-gap: 0.5rem;
+      grid-template:
+        "poster title title" auto
+        "poster info info" auto
+        "poster ratings cta" auto
+        "poster tagline tagline" auto
+        "poster  summary summary" auto
+        "poster directors directors" auto
+        ". . ." min-content / auto auto minmax(0, 1fr);
+    }
+  }
+
+  .title-detail-layout {
+    @apply grid auto-rows-min gap-y-2 4xl:gap-y-4;
+    grid-template:
+      "mdia" min-content
+      "meta" min-content
+      "rest" min-content / minmax(0, 1fr);
+
+    @media (min-width: 56rem) {
+      grid-template:
+        "mdia meta" min-content
+        "rest meta" min-content;
+      grid-template-columns: minmax(0, 1fr) 12rem;
+    }
+
+    @media (min-width: 64rem) {
+      grid-template-columns: minmax(0, 1fr) 16rem;
+    }
+
+    & .rest {
+      @apply @container space-y-8 px-2 4xl:px-4;
+      grid-area: rest;
+    }
+
+    & .mdia {
+      @apply @container space-y-8 px-2 4xl:px-4;
+      grid-area: mdia;
+    }
+
+    & .meta {
+      @apply px-2 4xl:pr-4 4xl:pl-4 5xl:pl-0;
+      grid-area: meta;
+    }
+  }
+
+  .title-details-layout {
+    @apply grid items-start gap-4;
+    grid-template:
+      "ttl ttl" min-content
+      "pos nfo" min-content
+      "pos tag" min-content
+      "pos scr" 1fr
+      "btn btn" auto / max-content minmax(0, 1fr);
+
+    @media (min-width: 36rem) {
+      grid-template:
+        "ttl ttl" min-content
+        "pos nfo" min-content
+        "pos tag" min-content
+        "pos scr" min-content
+        "pos btn" 1fr / max-content minmax(0, 1fr);
+    }
+  }
+
+  /* =========================== Parallax Animation ====================== */
+  @supports (animation-timeline: scroll()) {
+    .scroll-animation {
+      animation-duration: 1ms; /* Firefox requires this to apply the animation */
+      animation-direction: alternate;
+      animation-timeline: scroll(block root);
+    }
+
+    .scroll-home-parallax {
+      animation-name: home-parallax;
+    }
+
+    @keyframes home-parallax {
+      from {
+        transform: translate(0, 0);
+      }
+      to {
+        transform: translate(0, 165%);
+      }
+    }
+
+    .scroll-media-parallax {
+      animation-name: media-parallax;
+    }
+
+    @keyframes media-parallax {
+      from {
+        transform: translate(0, 0);
+      }
+      to {
+        transform: translate(0, 35%);
+      }
+    }
+  }
 }

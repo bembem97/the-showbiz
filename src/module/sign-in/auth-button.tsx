@@ -5,6 +5,7 @@ import { signIn, signOut } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import Button from "@mui/material/Button";
 import { useColorScheme } from "@mui/material/styles";
+import { Route } from "next";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export function SignOut({
@@ -25,7 +26,7 @@ export function SignOut({
         await signOut({
           fetchOptions: {
             onSuccess: () => {
-              router.push(pathname); // redirect to login page
+              router.push(pathname as Route); // redirect to login page
             },
           },
         })

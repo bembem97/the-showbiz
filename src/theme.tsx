@@ -47,7 +47,6 @@ export const theme: ThemeOptions = createTheme({
       },
     },
   },
-
   // ? ...
   typography: {
     fontFamily: "var(--font-roboto)",
@@ -73,7 +72,16 @@ export const theme: ThemeOptions = createTheme({
       fontSize: "0.875rem",
       fontWeight: 400,
     },
+    body1: {
+      fontWeight: 300,
+    },
     body2: {
+      fontWeight: 300,
+    },
+    subtitle1: {
+      fontWeight: 400,
+    },
+    subtitle2: {
       fontWeight: 400,
     },
   },
@@ -96,6 +104,11 @@ export const theme: ThemeOptions = createTheme({
     },
   },
   components: {
+    MuiAlert: {
+      defaultProps: {
+        severity: "info",
+      },
+    },
     MuiPaper: {
       defaultProps: {
         variant: "outlined",
@@ -112,6 +125,10 @@ export const theme: ThemeOptions = createTheme({
       styleOverrides: {
         root: {
           textTransform: "capitalize",
+          borderRadius: "0.375rem",
+          "@supports (corner-shape: bevel superellipse(infinity))": {
+            cornerShape: "bevel superellipse(infinity)",
+          },
         },
       },
     },
@@ -119,6 +136,12 @@ export const theme: ThemeOptions = createTheme({
       defaultProps: {
         size: "small",
         variant: "outlined",
+      },
+      styleOverrides: {
+        root: ({ theme }) => ({
+          textTransform: "capitalize",
+          fontSize: theme.typography.body2.fontSize,
+        }),
       },
     },
     MuiInputBase: {
@@ -129,6 +152,11 @@ export const theme: ThemeOptions = createTheme({
     MuiTextField: {
       defaultProps: {
         size: "small",
+      },
+    },
+    MuiLink: {
+      defaultProps: {
+        underline: "none",
       },
     },
   },
